@@ -4,9 +4,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  call-reusable-workflow:
+    strategy:
+      matrix:
+        nodeversions: [14, 16, 18, 20]
+
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      node: ${{ matrix.nodeversions }}
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     
       - uses: actions/checkout@v3
